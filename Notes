@@ -1,0 +1,13 @@
+Create a venv 
+> python -m venv venv
+
+to activate vevn in windows use 
+> venv\Scripts\activate 
+note :
+use the backslashes (\) instead of forward slashes (/).
+
+and install requiremets for this project 
+> pip install -r requirements.txt
+
+to start application 
+> python app.py

@@ -1,0 +1,67 @@
+openapi: 3.0.1
+info:
+  title: OAuth2 Scope Demo API
+  version: "1.0"
+
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        authorizationCode:
+          authorizationUrl: http://localhost:5000/authorize
+          tokenUrl: http://localhost:5000/token
+          scopes:
+            read: Read access to items
+            write: Write access to items
+      x-tokenInfoFunc: app.verify_token
+
+security: []
+
+paths:
+  /items:
+    get:
+      operationId: app.get_items
+      summary: Get items (requires read scope)
+      security:
+        - oauth2:
+            - read
+      responses:
+        '200':
+          description: List of items
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: string
+    post:
+      operationId: app.create_item
+      summary: Create item (requires write scope)
+      security:
+        - oauth2:
+            - write
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+      responses:
+        '201':
+          description: Item created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  item:
+                    type: object

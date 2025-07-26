@@ -1,0 +1,4 @@
+connexion[flask,swagger-ui]==3.2.0
+flask-cors==3.0.10
+uvicorn==0.34.2
+PyJWT==2.10.1
